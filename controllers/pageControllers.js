@@ -13,3 +13,8 @@ export const getAddPage = (req, res) => {
 export const getPhotoPage = (req, res) => {
     res.render("photo");
 };
+
+export const addPhoto = (req, res) => {
+    console.log({...req.body});
+    res.redirect("/")
+};
