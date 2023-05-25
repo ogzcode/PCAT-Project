@@ -1,5 +1,8 @@
-export const getHomePage = (req, res) => {
-    res.render("index");
+import { Photos } from "../models/Photo.js";
+
+export const getHomePage = async (req, res) => {
+    const photos = await Photos.find({});
+    res.render("index", { photos });
 };
 
 export const getAboutPage = (req, res) => {
@@ -8,13 +11,4 @@ export const getAboutPage = (req, res) => {
 
 export const getAddPage = (req, res) => {
     res.render("add");
-};
-
-export const getPhotoPage = (req, res) => {
-    res.render("photo");
-};
-
-export const addPhoto = (req, res) => {
-    console.log({...req.body});
-    res.redirect("/")
 };
