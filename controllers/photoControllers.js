@@ -3,9 +3,8 @@ import { Photos } from "../models/Photo.js";
 export const addPhoto = async (req, res) => {
     await Photos.create({
         ...req.body,
-        image: ""
+        image: "/upload/" + req.file.originalname
     });    
-    res.redirect("/")
 };
 
 export const getSinglePhoto = async (req, res) => {

@@ -1,6 +1,13 @@
-import mongoose, { mongo } from "mongoose"
+import mongoose from "mongoose"
 
 const Shema = mongoose.Schema;
+
+mongoose.connect("mongodb://127.0.0.1:27017/pcat", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log("Connect"))
+.catch(e => console.log(e));
 
 const PhotoShema = new Shema({
     title: String,
@@ -13,4 +20,3 @@ const PhotoShema = new Shema({
 });
 
 export const Photos = mongoose.model("Photos", PhotoShema);
-
