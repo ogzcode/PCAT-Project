@@ -3,9 +3,10 @@ import ejs from "ejs";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import multer from "multer";
+import methodOverride from "method-override";
 
-import { getHomePage, getAboutPage, getAddPage } from "./controllers/pageControllers.js";
-import { addPhoto, getSinglePhoto } from "./controllers/photoControllers.js";
+import { getHomePage, getAboutPage, getAddPage, getEditPage } from "./controllers/pageControllers.js";
+import { addPhoto, getSinglePhoto, deletePhoto, editPhoto } from "./controllers/photoControllers.js";
 
 const app = express();
 
@@ -25,6 +26,10 @@ const upload = multer({
 
 app.set("view engine", "ejs");
 
+app.use(methodOverride("_method", {
+    methods: ["POST", "GET"]
+}))
+
 app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: true }));
@@ -39,6 +44,9 @@ app.get("/add", getAddPage);
 
 app.post("/photoAdd", upload.single("image"), addPhoto);
 app.get("/photo/:id", getSinglePhoto);
+app.delete("/photo/delete/:id", deletePhoto);
+app.get("/photo/edit/:id", getEditPage);
+app.put("/photoEdit/:id", editPhoto);
 
 
 app.listen(3000, () => {
